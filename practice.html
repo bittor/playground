@@ -1,0 +1,57 @@
+<table id="displayOption">
+                    <tr>
+                        <td>
+                            <label>show group:</label>
+                            <input type="radio" name="display" id="chkAll" value="1">
+                            <label for="chkAll">All</label>
+                            <input type="radio" name="display" id="chkOne" value="2">
+                            <input class="changeableNum" type="text" id="chooseOne" size="10">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>show part:</label>
+                            <input type="radio" name="showpart" id="partAll" value="1">
+                            <label for="chkAll">All</label>
+                            <input type="radio" name="showpart" id="partOne" value="2">
+                            <input class="changeableNum" type="text" id="partToShow" size="10">
+                        </td>
+                    </tr>
+                </table>
+<script>
+class DisplayControl
+{
+    constructor()
+    {
+        this.targetGroup = -1; //-1: all, [0,]: select one
+        this.targetPart = -1; //-1: all, [0,]: select one
+        this.domPartOption = document.getElementById("partAll");
+        this.domPartOption2 = document.getElementById("partOne");
+        this.domPartText = document.getElementById("partToShow");
+        this.domPartOption.onchange = function(e){
+            console.log("choose SHOW ALL PART", this.domPartOption);
+            if(this.domPartOption.checked == true)
+            {
+                this.domPartText.blur();
+            }
+        }
+        this.domPartOption2.onchange = function(e){
+            console.log("choose SHOW ONE PART");
+            if(this.domPartOption.checked == true){
+                this.domPartText.focus();
+            }
+        }
+        this.domPartText.onkeypress = function(e){
+            if(e.charCode == 13) //chrome use 'charCode' while others may differ
+            {
+                var desired_id = Number(this.domPartText.value);
+                console.log("ENTER ", desired_id);
+
+            }
+        }
+        this.domPartText.onfocus = function(e){
+            this.domPartOption2.setAttribute("checked", true);
+        }
+    }
+}
+</script>
