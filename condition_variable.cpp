@@ -4,6 +4,8 @@
 #include <condition_variable>
 #include <chrono>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 using namespace std::chrono;
@@ -44,12 +46,14 @@ int main()
         stat.store(false);
         thread tA(threadA);
         thread tB(threadB);
+        srand(time(nullptr));
         while(1)
         {
                 unique_lock<mutex> lkA(mtxA, defer_lock);
                 unique_lock<mutex> lkB(mtxB, defer_lock);
                 int x;
-                cin >> x; 
+                //cin >> x; 
+                x = rand(); 
                 stat.store(true);
                 lock(lkA, lkB);
                 content = x;
